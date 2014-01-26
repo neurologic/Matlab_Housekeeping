@@ -19,5 +19,8 @@ if regexp(location,'z')
     r.Dir.Behavior = 'Z:\krista\data\behavior\';
     r.Dir.Calibrate = 'Z:\krista\KPstims\Calibrated\';
 end
+if regexp(location,'mac')
+    r.Dir.Expt = '/Users/kperks/GitHub/Data_Mat/';
+end
 
 end
