@@ -21,6 +21,8 @@ if regexp(location,'z')
 end
 if regexp(location,'mac')
     r.Dir.Expt = '/Users/kperks/GitHub/Data_Mat/';
+%     r.Dir.IgorExpt = 'smb://lintu.ucsd.edu/kperks/KPexperiments/';
+    r.Dir.IgorExpt = '/Volumes/kperks/KPexperiments/';
 end
 
 end

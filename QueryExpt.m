@@ -1,10 +1,10 @@
-function [expt,table,hfig]=QueryExpt(expt)
-r=rigdef('z');
+function [expt,table,hfig]=QueryExpt(expt,r)
+
 % Vm
 % which clamps do you care about for this cell
 % if there are any you dont care about, then filter them out and chamge
 % expt.wc.allVm to reflect that change
-hfig=VisualizeForQuery(expt,0);
+hfig=VisualizeForQuery(expt,0,r);
 
 % excluded Trials
 % exclude those trials
@@ -40,7 +40,7 @@ end
 save(fullfile(r.Dir.Expt,expt.name),'expt')
 
 % now for each clamp potential, replot, save, and go through and document info:
-hfig=VisualizeForQuery(expt,1);
+hfig=VisualizeForQuery(expt,1,r);
 
 %  from mean response at each clamp, calculate Rin and Rs and provide a
 %  plot of the step to save

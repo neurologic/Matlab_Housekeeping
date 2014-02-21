@@ -1,9 +1,9 @@
 %%
-r = rigdef('z');
+r = rigdef('mac');
 %% import sweeps
 clear expt;
-expt.name = 'KP_B136_131205_p1c3';%'KP_B709_110602_p1c5' 
-expt = addIgorDataNew(expt);
+expt.name = 'KP_B790_140127_p1c2';%'KP_B709_110602_p1c5' 
+expt = addIgorDataNew(expt,r);
 expt.wc.data=double(expt.wc.data);
 save(fullfile(r.Dir.Expt,expt.name),'expt')
 
@@ -11,11 +11,8 @@ save(fullfile(r.Dir.Expt,expt.name),'expt')
 % stored during experiment in IGOR
 
 %%
- [expt,table,hfig]=QueryExpt(expt);
+ [expt,table,hfig]=QueryExpt(expt,r);
 
-for ifig=1:max(size(hfig))
-     close(hfig(ifig))
- end
 
 %%
 

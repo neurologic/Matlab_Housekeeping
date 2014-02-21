@@ -1,8 +1,8 @@
-function expt = addIgorData(expt)
+function expt = addIgorData(expt,r)
  % this function will find all the files from this exptmentfolder and files
  % and concatenate them
  
- r = rigdef('z');
+%  r = rigdef('mac');
  % get exptfolder
  ind = regexp(expt.name,'_');
 %  exptfolder = expt.name(1:ind(end-1)-1);
