@@ -206,33 +206,36 @@ notdata = [notdata ifile];
  ind_datafiles(notdata) = 0;
  ind_datafiles = find(ind_datafiles);
  data = nan(expt.daqinfo.nsamples,expt.daqinfo.nsweeps,'single');
-%data = nan(132346,expt.daqinfo.nsweeps,'single');
+ %data = nan(132346,expt.daqinfo.nsweeps,'single');
  
-for ifile = 1:length(ind_datafiles)
-    disp(['Loading ' fullfile(r.Dir.IgorExpt,exptfolder,d(ind_datafiles(ifile)).name)])
+ for ifile = 1:length(ind_datafiles)
+     disp(['Loading ' fullfile(r.Dir.IgorExpt,exptfolder,d(ind_datafiles(ifile)).name)])
      temp = importdata(fullfile(r.Dir.IgorExpt,exptfolder,d(ind_datafiles(ifile)).name));
      nsweeps_infile = temp.data(4,end);
-      firstsw = temp.data(5,end);
-
+     firstsw = temp.data(5,end);
+     
      data(:,firstsw:firstsw+nsweeps_infile-1) = temp.data(:,1:end-1); % last column is sample sweep info
  end
  expt.wc.data = data';expt.wc.dt=1/expt.daqinfo.samplerate;
-  expt=dnsample_expt(expt,10000);
-  
-  
-  for ifile = 1:length(d)
+ expt=dnsample_expt(expt,10000);
+ 
+ 
+ for ifile = 1:length(d)
      if ~isempty(regexp(d(ifile).name,'epochinfo'))
          temp = importdata(fullfile(r.Dir.IgorExpt,exptfolder,d(ifile).name));
          break
      end
  end
-
+ 
  expt.analysis.params.steptime=round([temp.data(5) (temp.data(5)+temp.data(6))]/expt.wc.dt);
  expt.analysis.params.waveonset_time=temp.data(5)+temp.data(6)+temp.data(7);
-%  for baselinewin... allow 20msec for RC of step to return to baseline
+ expt.analysis.params.sweepoffset_time = temp.data(8)
+ %  for baselinewin... allow 20msec for RC of step to return to baseline
  expt.analysis.params.baselinewin=round([(temp.data(5)+temp.data(6)+0.02) expt.analysis.params.waveonset_time]/expt.wc.dt);
-
- assert(max(size(unique(wavlength)))==1, 'signals of different durations');
- AfterMotDur=1;
-sweepstop = round((expt.analysis.params.waveonset_time+AfterMotDur)/expt.wc.dt)+round(size(expt.stimcond(1).wavs,1)/44100/expt.wc.dt);
- expt.wc.data=expt.wc.data(:,1:sweepstop);
+ 
+ %%%%%% don't know when or how this was useful, but it started to screw
+ %%%%%% things up!
+%  assert(max(size(unique(wavlength)))==1, 'signals of different durations');
+%  AfterMotDur = expt.analysis.params.sweepoffset_time;
+%  sweepstop = round((expt.analysis.params.waveonset_time+AfterMotDur)/expt.wc.dt)+round(size(expt.stimcond(1).wavs,1)/44100/expt.wc.dt);
+%  expt.wc.data=expt.wc.data(:,1:sweepstop);

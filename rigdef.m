@@ -22,7 +22,9 @@ end
 if regexp(location,'mac')
     r.Dir.Expt = '/Users/kperks/GitHub/Data_Mat/';
 %     r.Dir.IgorExpt = 'smb://lintu.ucsd.edu/kperks/KPexperiments/';
+    r.Dir.2014msRepo_expt = '/Users/kperks/GitHub/PerksGentner2014/WholeCellData_repexpts/';
     r.Dir.IgorExpt = '/Volumes/kperks/KPexperiments/';
+    r.Dir.Stims = '/Users/kperks/GitHub/StimsAllWavs/';
 end
 
 end

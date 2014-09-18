@@ -2,14 +2,15 @@
 r = rigdef('mac');
 %% import sweeps
 clear expt;
-expt.name = 'KP_B790_140127_p1c2';%'KP_B709_110602_p1c5' 
+expt.name = 'KP_B1036_140701_p3c1';%'KP_B709_110602_p1c5' 
 expt = addIgorDataNew(expt,r);
 expt.wc.data=double(expt.wc.data);
 save(fullfile(r.Dir.Expt,expt.name),'expt')
 
 % now addIgorDataNew takes care of doing stimcond and params from data
 % stored during experiment in IGOR
-
+%% condition stimulus for getting dB info and stim length as part of sweeps info
+    
 %%
  [expt,table,hfig]=QueryExpt(expt,r);
 
